@@ -48,7 +48,7 @@ class R2A_BBA0(IR2A):
                 #Qualidade requisitada é Rmin, a fim de preencher o reservatório do buffer.
                 msg.add_quality_id(self.qi[0])
 
-            elif self.current_buffe[-1][1] >= self.whiteboard.get_max_buffer_size()*0.9:
+            elif self.current_buffer[-1][1] >= self.whiteboard.get_max_buffer_size()*0.9:
                 #Qualidade requisitada é Rmax, pois o buffer está mais de 90% preenchido.
                 msg.add_quality_id(self.qi[19])
 
