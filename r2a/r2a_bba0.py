@@ -20,10 +20,6 @@ class R2A_BBA0(IR2A):
         self.qi = []
         #Reservatório do buffer, definido como 10% de sua capacidade
         self.reservoir = self.whiteboard.get_max_buffer_size()*0.1
-        #Preenchimento atual do buffer
-        self.current_buffer = self.whiteboard.get_playback_buffer_size()
-        #Taxa atual
-        self.current_rate = self.whiteboard.get_playback_qi()
 
     def handle_xml_request(self, msg):
         #Envia a mensagem de requisição do mpd para a camada ConnectionHandler, sem modificação.
@@ -43,31 +39,31 @@ class R2A_BBA0(IR2A):
         return m*(b - self.reservoir) + self.qi[0]
 
     def handle_segment_size_request(self, msg):
-        if len(self.current_buffer) > 0:
-            if self.current_buffer[-1][1] <= self.reservoir:
+        if len(self.whiteboard.get_playback_buffer_size()) > 0:
+            if self.whiteboard.get_playback_buffer_size()[-1][1] <= self.reservoir:
                 #Qualidade requisitada é Rmin, a fim de preencher o reservatório do buffer.
                 msg.add_quality_id(self.qi[0])
 
-            elif self.current_buffe[-1][1] >= self.whiteboard.get_max_buffer_size()*0.9:
+            elif self.whiteboard.get_playback_buffer_size()[-1][1] >= self.whiteboard.get_max_buffer_size()*0.9:
                 #Qualidade requisitada é Rmax, pois o buffer está mais de 90% preenchido.
                 msg.add_quality_id(self.qi[19])
 
             else:
-                if rate_function(self.current_buffer[-1][1]) > self.current_rate[-1][1]:
+                if self.rate_function(self.whiteboard.get_playback_buffer_size()[-1][1]) > self.whiteboard.get_playback_qi()[-1][1]:
                     #Se a taxa recomendada for maior que a próxima taxa, ela será atualizada
                     for i in self.qi:
-                        if rate_function(self.current_buffer[-1][1]) > i:
+                        if self.rate_function(self.whiteboard.get_playback_buffer_size()[-1][1]) > i:
                             msg.add_quality_id(i)
                 
-                elif rate_function(self.current_buffer[-1][1]) < self.current_rate[-1][1]:
+                elif self.rate_function(self.whiteboard.get_playback_buffer_size()[-1][1]) < self.whiteboard.get_playback_qi()[-1][1]:
                     #Se a taxa recomendada for menor que a taxa anterior, esta será atualizada
                     for i in self.qi:
-                        if rate_function(self.current_buffer[-1][1]) < i:
+                        if self.rate_function(self.whiteboard.get_playback_buffer_size()[-1][1]) < i:
                             msg.add_quality_id(i)
                 
                 else:
                     #Se a taxa recomendada estiver dentro do intervalo aberto (Rate-, Rate+), ela não será atualizada
-                    msg.add_quality_id(self.current_rate[-1][1])
+                    msg.add_quality_id(self.whiteboard.get_playback_qi()[-1][1])
         else:
             msg.add_quality_id(self.qi[0])
 
