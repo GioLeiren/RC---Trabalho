@@ -60,14 +60,10 @@ class R2A_BBA0(IR2A):
                     for i in self.qi:
                         if self.rate_function(self.whiteboard.get_playback_buffer_size()[-1][1]) < i:
                             msg.add_quality_id(i)
-                
-                else:
-                    #Se a taxa recomendada estiver dentro do intervalo aberto (Rate-, Rate+), ela não será atualizada
-                    msg.add_quality_id(self.whiteboard.get_playback_qi()[-1][1])
+
         else:
             msg.add_quality_id(self.qi[0])
-
-
+            
         self.send_down(msg)
 
     def handle_segment_size_response(self, msg):
