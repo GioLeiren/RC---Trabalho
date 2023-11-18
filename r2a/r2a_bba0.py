@@ -39,6 +39,7 @@ class R2A_BBA0(IR2A):
         return m*(b - self.reservoir) + self.qi[0]
 
     def handle_segment_size_request(self, msg):
+        msg.add_quality_id(self.qi[12])
         if len(self.whiteboard.get_playback_buffer_size()) > 0:
             if self.whiteboard.get_playback_buffer_size()[-1][1] <= self.reservoir:
                 #Qualidade requisitada é Rmin, a fim de preencher o reservatório do buffer.
@@ -63,7 +64,7 @@ class R2A_BBA0(IR2A):
 
         else:
             msg.add_quality_id(self.qi[0])
-            
+
         self.send_down(msg)
 
     def handle_segment_size_response(self, msg):
