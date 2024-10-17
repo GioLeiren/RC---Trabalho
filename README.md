@@ -4,10 +4,10 @@
 This project is based on [PyDash](https://github.com/mfcaetano/pydash), a Python framework that simulates Dynamic Adaptive Streaming over HTTP (MPEG-DASH). The framework implements adaptive bitrate (ABR) algorithms, allowing clients to dynamically adjust video quality based on network conditions and buffer size. This repository extends the original PyDash project by implementing a new ABR algorithm, **BBA0 (Buffer-Based Adaptation version 0)**, which is designed to adjust video quality based on the size of the playback buffer.
 
 ## What is MPEG-DASH?
-MPEG-DASH (Dynamic Adaptive Streaming over HTTP) is a streaming protocol that breaks video content into small segments. Each segment is encoded at multiple bitrates to accommodate different network conditions. The goal of an ABR algorithm in MPEG-DASH is to choose the highest possible bitrate that the network can handle without causing interruptions or buffering during playback​(Especificacao_pydash__2…).
+MPEG-DASH (Dynamic Adaptive Streaming over HTTP) is a streaming protocol that breaks video content into small segments. Each segment is encoded at multiple bitrates to accommodate different network conditions. The goal of an ABR algorithm in MPEG-DASH is to choose the highest possible bitrate that the network can handle without causing interruptions or buffering during playback​. [Especificacao_pydash__2…](https://github.com/GioLeiren/RC---Trabalho/blob/main/Especificacao_pydash__202302_.pdf)
 
 ## Original Project: PyDash
-[PyDash](https://github.com/mfcaetano/pydash) is a functional client-side simulation platform for evaluating different ABR algorithms. The project allows users to implement new ABR algorithms in a modular way through an abstract class interface called `IR2A` (Interface of Rate Adaptation Algorithms)​(Especificacao_pydash__2…).
+[PyDash](https://github.com/mfcaetano/pydash) is a functional client-side simulation platform for evaluating different ABR algorithms. The project allows users to implement new ABR algorithms in a modular way through an abstract class interface called `IR2A` (Interface of Rate Adaptation Algorithms). [Especificacao_pydash__2…](https://github.com/GioLeiren/RC---Trabalho/blob/main/Especificacao_pydash__202302_.pdf)
 
 The basic components of the PyDash architecture include:
 
@@ -37,7 +37,7 @@ The main class for the BBA0 implementation is `R2A_BBA0`, which inherits from `I
 3. **Buffer Monitoring:** The algorithm constantly monitors the buffer size. When the buffer is below 10%, the minimum quality is requested to prevent buffering. If the buffer is above 90%, the highest quality is requested.
 
 ## Testing and Results
-The BBA0 algorithm was tested using the **Big Buck Bunny** video, which is segmented into various qualities ranging from 46,980bps to 4,726,737bps​(Especificacao_pydash__2…). The algorithm successfully adapts to changes in buffer size, ensuring high-quality playback with minimal interruptions.
+The BBA0 algorithm was tested using the **Big Buck Bunny** video, which is segmented into various qualities ranging from 46,980bps to 4,726,737bps​ [Especificacao_pydash__2…](https://github.com/GioLeiren/RC---Trabalho/blob/main/Especificacao_pydash__202302_.pdf). The algorithm successfully adapts to changes in buffer size, ensuring high-quality playback with minimal interruptions.
 
 ## How to Run
 1. Clone the repository:
@@ -59,5 +59,5 @@ python pydash.py --config dash_client.json
 * Integrating more advanced traffic shaping profiles for dynamic bandwidth management.
 
 ## Resources
-* PyDash GitHub Repository
-* MPEG-DASH Overview​(Especificacao_pydash__2…).
+* [PyDash GitHub Repository](https://github.com/mfcaetano/pydash)
+* MPEG-DASH Overview [Especificacao_pydash__2…](https://github.com/GioLeiren/RC---Trabalho/blob/main/Especificacao_pydash__202302_.pdf).
